@@ -65,19 +65,23 @@ For the same kind of experiments, the table below shows the setups Collobert et 
 
 ## Discussion
 ### On my experiments
-Here I comment of few options and results:
- * EPOCHS, 25 suffisent
- * LR: 0.01
- * BATCH_SIZE: 1 meilleur, 4 plus rapide
- * Adagrad/Adadelta: Adagrad bien meilleur que SGD, Adadelta très long, mais régulier
- * $\epsilon$ : $10^{-6}$ La valeur par default ($10^{-10}$) est meilleure pour le NER, pas pour les chunks. Les valeurs -9 et -11 sont légèrement moins bonnes pour les NER
- * Les vecteurs Senna sont essentiels. L'ajout des mots propres au corpus est très bénéfique pour EWT. L'effet est mineur et variable pour CoNLL 2000 et 2003
- * init matrice : uniforme/normale, uniforme centré et divisé par 10 meilleure que normale. La loi normale simple donne de très mauvais résultats
- * Relu/hardth : Relu meilleur de 1,42% pour CoNLL 2003 (0.8472 contre 0.8614). Je n'ai pas évalué pour les autres
- * IOBES/BIO: IOBES bien meilleur pour CoNLL 2003, BIO un peu meilleur pour CoNLL 2000. Si on doit faire un choix, IOBES est le meilleur compromis
- * Nettoyage proposé par Attardi ou non: les résultats semblent presque égaux
+I carried out many experiments to understand the parameter contributions. Here I comment of few options and results:
+ * The convergence is relatively quick. We can reach optimal results with 25 epochs;
+ * The value of the learning rate is important. I tested a few values, but Senna's 0.01 seems to yield the best results;
+ * A batch size of one results in the best score. Four or more is faster of course;
+ * The Adagrad is better than the plain stochastic gradient descent (SGD) available from PyTorch. Adadelta is very slow, bu the convergence is regular;
+ * Adagrad has one parameter: $\epsilon$. The default value, $10^{-10}$, is better for the NER task, but not for chunking, where $10^{-6}$ is better.
+ * The Senna embeddings increase consequently the scores, especially for the NER tasks. When adding the corpus words, we see an improvement in some tasks, although not as big and sometimes a stagnation;
+ * The embedding initialization has a significant impact on the scores. The centered uniform law divided by 10 has a better performance than a comparable normal law. A default initialization of the normal law leads to quite disappointing results;
+ * Collobert et al. used a hard hyperbolic tangent as nonlinear layer. We found ReLU better with an improvement of more than 1% for CoNLL 2003 in the simple feed-forward setup. I did not evaluate the other datasets;
+ * Collobert et al. used the IOBES tagset. IOBES is better on CoNLL 2003. The results are quite variable on CoNLL 2000, where BIO can be better. Overall, IOBES is a better tradeoff.
+ * The CRF contribution is high for the NER task It seems lower for chunking and negligible for POS tagging.
 
 ### Comparing them with those of Senna
+In the complete and best configurations, I obtained results that roughly match those of Collobert et al. Note again that the experiental setups are not the same. 
+
+I found one divergence nonetheless: The contribution of the Senna embeddings. Taking CoNLL 2003 alone, Collobert et al. report that the pretrained embeddings improved the scores by more than 7%: 79.53 to 86.96 for the simple feed-forward and 81.47 to 88.67 with the CRF layer. In my experiments, the scores improved from 2.5 to 3.1%
+
 ## Other Implementations
 I could find a few other attempts to reproduce the code. To the best of my knowledge, no one used PyTorch.
  * For the taggers and the embeddings, see the excellent [`deepnl`](https://github.com/attardi/deepnl) by Giuseppe Attardi. See also his paper [DeepNL: a Deep Learning NLP pipeline](https://aclanthology.org/W15-1515/); 
