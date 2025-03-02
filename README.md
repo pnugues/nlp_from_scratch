@@ -1,5 +1,5 @@
 # nlp_from_scratch
-A reimplementation in PyTorch of the Senna program described in [_Natural language processing (almost) from scratch_](https://arxiv.org/abs/1103.0398) by Collobert et al. (2011).
+The article [_Natural language processing (almost) from scratch_](https://arxiv.org/abs/1103.0398) by Collobert et al. (2011) is a landmark in natural language processing. The authors showed it was possible to train neural networks on a variety of NLP task with a unique  architecture. This repository is reimplementation of their Senna program in PyTorch.
 
 ## Overview
 In these two notebooks, I reproduce the Senna program described in [_Natural language processing (almost) from scratch_ by Collobert et al. (2011)](https://arxiv.org/abs/1103.0398) with a modern deep-learning programming interface: PyTorch. I created the notebooks from the paper's high-level description. This means that my programs are reinterpretations and are not exactly equivalent to the original code.
@@ -64,6 +64,7 @@ For the same kind of experiments, the table below shows the setups Collobert et 
 |Senna     |Yes|97.20|93.63|88.67|
 
 ## Discussion
+### On my experiments
 Here I comment of few options and results:
  * EPOCHS, 25 suffisent
  * LR: 0.01
@@ -76,6 +77,7 @@ Here I comment of few options and results:
  * IOBES/BIO: IOBES bien meilleur pour CoNLL 2003, BIO un peu meilleur pour CoNLL 2000. Si on doit faire un choix, IOBES est le meilleur compromis
  * Nettoyage proposé par Attardi ou non: les résultats semblent presque égaux
 
+### Comparing them with those of Senna
 ## Other Implementations
 I could find a few other attempts to reproduce the code. To the best of my knowledge, no one used PyTorch.
  * For the taggers and the embeddings, see the excellent [`deepnl`](https://github.com/attardi/deepnl) by Giuseppe Attardi. See also his paper [DeepNL: a Deep Learning NLP pipeline](https://aclanthology.org/W15-1515/); 
