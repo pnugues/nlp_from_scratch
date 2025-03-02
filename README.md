@@ -28,6 +28,33 @@ As there is no validation set in CoNLL 2000, in my experiments, I used the test 
 |Validation|Val|Test|Test|
 |Test|Test|--|--|
 
+## Results
+I report the results of the simple feed-forward network and different configurations (first notebook), then of the CRF network (second notebook). I used 25 epochs in the first notebook and 60 for the second one. 
+
+### Feed-Forward
+|Batch|LR| Optimizer | $\epsilon$|Embeddings | Init.|Tags|POS EWT | CoNLL 2000|CoNLL 2003|
+|-------:| -------- | ------- |-------|-------|-------|----|----|----|----|
+|1| 0.01|Adagrad |$10^{-10}$ | Words    |U centré / 10|BIO|0.9411 (ep. 21)|0.9119 (ep. 14)|0.8219 (ep. 22)|
+|1| 0.01|Adagrad |$10^{-10}$ | Senna    |U centré / 10|BIO|0.9468 (ep. 23)|0.9241 (ep. 19)|0.8497 (ep. 13)|
+|1| 0.01|Adagrad |$10^{-10}$ | Senna + Words    |U centré / 10|BIO|0.9516 (ep. 21)|0.9242 (ep. 20)|0.8466 (ep. 9)|
+|1| 0.01|Adagrad |$10^{-6}$ | Senna + Words    |U centré / 10|BIO|**0.9520** (ep. 22)|**0.9251** (ep. 21)|0.8448 (ep. 20)|
+|1| 0.01|Adagrad |$10^{-10}$ | Words    |U centré / 10|IOBES|0.9411 (ep. 21)|0.9061 (ep. 16)|0.8254 (ep. 15)|
+|1| 0.01|Adagrad |$10^{-10}$ | Senna    |U centré / 10|IOBES|0.9468 (ep. 23)|0.9207 (ep. 19)|**0.8615** (ep. 15)|
+|1| 0.01|Adagrad |$10^{-10}$ | Senna + Words   |U centré / 10 |IOBES|0.9516 (ep. 21)|0.9220 (ep. 13)|0.8614 (ep. 18)|
+
+### Feed-Forward and CRF
+|Batch|LR| Optimizer | $\epsilon$|Embeddings | Init.|Tags|POS EWT | CoNLL 2000|CoNLL 2003|
+|-------:| -------- | ------- |-------|-------|-------|----|----|----|----|
+|1| 0.01|Adagrad |$10^{-10}$ | Words    |U centré / 10|BIO|–|0.9268 (ep. 20)|0.8530 (ep. 11)|
+|1| 0.01|Adagrad |$10^{-10}$ | Senna    |U centré / 10|BIO|–|0.9354 (ep. 29)|0.8778 (ep. 25)|
+|1| 0.01|Adagrad |$10^{-10}$ | Senna + Words    |U centré / 10|BIO|–|0.9357 (ep. 20)|0.8760 (ep. 21)|
+|1| 0.01|Adagrad |$10^{-6}$ | Senna + Words    |U centré / 10|BIO||||
+|1| 0.01|Adagrad |$10^{-10}$ | Words    |U centré / 10|IOBES|0.9429 (ep. 26)|0.9261 (ep. 34)|0.8569 (ep. 11)|
+|1| 0.01|Adagrad |$10^{-10}$ | Senna    |U centré / 10|IOBES|0.9503 (ep. 13)|0.9367 (ep. 34)| 0.8848 (ep. 30)|
+|1| 0.01|Adagrad |$10^{-10}$ | Senna + Words   |U centré / 10 |IOBES|0.9514 (ep. 57)|**0.9383** (ep. 40)|**0.8874** (ep. 44)|
+
+## Senna Results
+
 ## Other Implementations
 I could find a few other attempts to reproduce the code. To the best of my knowledge, no one used PyTorch.
  * For the taggers and the embeddings, see the excellent [`deepnl`](https://github.com/attardi/deepnl) by Giuseppe Attardi. See also his paper [DeepNL: a Deep Learning NLP pipeline](https://aclanthology.org/W15-1515/); 
