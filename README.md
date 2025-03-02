@@ -54,6 +54,27 @@ I report the results of the simple feed-forward network and different configurat
 |1| 0.01|Adagrad |$10^{-10}$ | Senna + Words   |U centré / 10 |IOBES|0.9514 (ep. 57)|**0.9383** (ep. 40)|**0.8874** (ep. 44)|
 
 ## Senna Results
+For the same kind of experiments, the table below shows the setups Collobert et al. used and the results they obtained. The batch size is always of one, the optimizer is a stochastic gradient descent, the learning rate equals 0.01, and the tagset is IOBES.
+
+|Embeddings|CRF|POS PTB | CoNLL 2000|CoNLL 2003|
+|-------|----|----:|----:|----:|
+|Words     |No|96.31|89.13|79.53|
+|Senna     |No|97.14|92.04|86.96|
+|Words     |Yes|96.37|90.33|81.47|
+|Senna     |Yes|97.20|93.63|88.67|
+
+## Discussion
+Here I comment of few options and results:
+ * EPOCHS, 25 suffisent
+ * LR: 0.01
+ * BATCH_SIZE: 1 meilleur, 4 plus rapide
+ * Adagrad/Adadelta: Adagrad bien meilleur que SGD, Adadelta très long, mais régulier
+ * $\epsilon$ : $10^{-6}$ La valeur par default ($10^{-10}$) est meilleure pour le NER, pas pour les chunks. Les valeurs -9 et -11 sont légèrement moins bonnes pour les NER
+ * Les vecteurs Senna sont essentiels. L'ajout des mots propres au corpus est très bénéfique pour EWT. L'effet est mineur et variable pour CoNLL 2000 et 2003
+ * init matrice : uniforme/normale, uniforme centré et divisé par 10 meilleure que normale. La loi normale simple donne de très mauvais résultats
+ * Relu/hardth : Relu meilleur de 1,42% pour CoNLL 2003 (0.8472 contre 0.8614). Je n'ai pas évalué pour les autres
+ * IOBES/BIO: IOBES bien meilleur pour CoNLL 2003, BIO un peu meilleur pour CoNLL 2000. Si on doit faire un choix, IOBES est le meilleur compromis
+ * Nettoyage proposé par Attardi ou non: les résultats semblent presque égaux
 
 ## Other Implementations
 I could find a few other attempts to reproduce the code. To the best of my knowledge, no one used PyTorch.
