@@ -1,8 +1,8 @@
 # nlp_from_scratch
-The article [_Natural language processing (almost) from scratch_](https://arxiv.org/abs/1103.0398) by Collobert et al. (2011) is a landmark in natural language processing. The authors showed it was possible to train neural networks on a variety of NLP task with a unique  architecture. This repository is reimplementation of their Senna program in PyTorch.
+The article [_Natural language processing (almost) from scratch_](https://arxiv.org/abs/1103.0398) by Collobert et al. (2011) is a landmark in natural language processing. The authors showed then it was possible to train neural networks on a variety of NLP task with a unique  architecture. This repository is reimplementation of their Senna program in PyTorch.
 
 ## Overview
-In these two notebooks, I reproduce the Senna program described in [_Natural language processing (almost) from scratch_ by Collobert et al. (2011)](https://arxiv.org/abs/1103.0398) with a modern deep-learning programming interface: PyTorch. I created the notebooks from the paper's high-level description. This means that my programs are reinterpretations and are not exactly equivalent to the original code.
+The repository contains two notebooks, where I reproduce the Senna program described in [_Natural language processing (almost) from scratch_ by Collobert et al. (2011)](https://arxiv.org/abs/1103.0398) with a modern deep-learning programming interface: PyTorch. I created the notebooks from the paper's high-level description. This means that my programs are reinterpretations and are not exactly equivalent to the original code.
 
 Collobert et al. created a set of programs with configurations ranging from a word embeddings input to inputs including specific dictionaries on the word properties. These dictionaries were designed for English, including for instance the word suffixes. Here I will assume a minimal knowledge of the words. As input, I will use the dataset words and capitalization properties, as we can extend them easily to other languages, and the pretrained embeddings.
 
