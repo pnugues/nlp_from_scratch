@@ -1,6 +1,7 @@
 # nlp_from_scratch
 A reimplementation in PyTorch of the Senna program described in [_Natural language processing (almost) from scratch_](https://arxiv.org/abs/1103.0398) by Collobert et al. (2011).
 
+## Overview
 In these two notebooks, I reproduce the Senna program described in [_Natural language processing (almost) from scratch_ by Collobert et al. (2011)](https://arxiv.org/abs/1103.0398) with a modern deep-learning programming interface: PyTorch. I created the notebooks from the paper's high-level description. This means that my programs are reinterpretations and are not exactly equivalent to the original code.
 
 Collobert et al. created a set of programs with configurations ranging from a word embeddings input to inputs including specific dictionaries on the word properties. These dictionaries were designed for English, including for instance the word suffixes. Here I will assume a minimal knowledge of the words. As input, I will use the dataset words and capitalization properties, as we can extend them easily to other languages, and the pretrained embeddings.
@@ -14,8 +15,20 @@ Ronan Collobert made the inference part of Senna available as well as the pretra
  * CoNLL 2000 for chunking;
  * CoNLL 2003 for named entity recognition.
 
-Collobert et al. used the Penn Treebank for POS tagging, CoNLL 2000, and CoNLL 2003. They did not describe precisely how they selected their model and how they used the CoNLL 2003 validation set. As there is no validation set in CoNLL 2000, in my experiments, I used the test set of both CoNLL 2000 and CoNLL 2003 as validation set and I included the validation set of CoNLL 2003 in the training set. The results I report are not then exactly equivalent to those of Collobert et al. For the EWT, I report the classical training, validation, and test results.
+## Experimental Setup
+The datasets have different structures. EWT and CoNLL 2003 have a validation set, but CoNLL 2000 does not. Collobert et al. do not provide details on the fitting and evaluation conditions. When CoNLL 2000 was released, experimental protocols were not yet well standardized, which is reflected in its structure. Attardi merges the fitting and validation sets and removes the title lines. 
 
+Collobert et al. used the Penn Treebank for POS tagging, CoNLL 2000, and CoNLL 2003. They did not describe precisely how they selected their model and how (or if) they used the CoNLL 2003 validation set. 
+
+As there is no validation set in CoNLL 2000, in my experiments, I used the test set of both CoNLL 2000 and CoNLL 2003 as validation set and I included the validation set of CoNLL 2003 in the training set. The results I report are then not equivalent to those of Collobert et al. For the EWT, I report the classical training, validation, and test results.
+
+|Dataset|POS EWT | CoNLL 2000|CoNLL 2003|
+|-------| -------- | ------- |-------|
+|Training|Train|Train|Train + val|
+|Validation|Val|Test|Test|
+|Test|Test|--|--|
+
+## Other Implementations
 I could find a few other attempts to reproduce the code. To the best of my knowledge, no one used PyTorch.
  * For the taggers and the embeddings, see the excellent [`deepnl`](https://github.com/attardi/deepnl) by Giuseppe Attardi. See also his paper [DeepNL: a Deep Learning NLP pipeline](https://aclanthology.org/W15-1515/); 
  * For the Senna embeddings, see https://github.com/klb3713/cw_word_embedding.
