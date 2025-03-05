@@ -76,7 +76,7 @@ I carried out many experiments to understand the parameter contributions. Here I
  * Collobert et al. used a hard hyperbolic tangent as nonlinear layer. I found ReLU better with an improvement of more than 1% for CoNLL 2003 in the simple feed-forward setup. I did not evaluate the other datasets;
  * Collobert et al. used the IOBES tagset. IOBES is better on CoNLL 2003. The results are quite variable on CoNLL 2000, where BIO can be better. Overall, IOBES is a better tradeoff.
  * The CRF contribution is high for the NER task. It seems lower for chunking and negligible for POS tagging.
- * Collobert et al. factorize the logits to compute the normalizing terms in CRFs in Sect 3.3.2 of their paper and use the distributivity of the logarithm. This may be a bit more stable than the implementation in torchcrf. It improved slightly the score of CoNLL 2003 from 0.8874 to 0.8883. I did not evaluate this technique on the other datasets.
+ * Collobert et al. use the distributivity in the log semi-ring and factorize the logits to compute the normalizing terms in CRFs in Sect 3.3.2 of their paper. This may be a bit more stable than the implementation in torchcrf. It improved slightly the score of CoNLL 2003 from 0.8874 to 0.8883. I did not evaluate this technique on the other datasets.
 
 ### Comparing them with those of Senna
 In the complete and best configurations, I obtained results that roughly match those of Collobert et al. Note again that the experiental setups are not the same. 
